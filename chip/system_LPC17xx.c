@@ -126,7 +126,8 @@ void SwitchToPLL0(void) {
 
   __disable_irq();
 
-  LPC_SC->PLL0CON = 0x03;
+  // CHANGE:  This was 0x03
+  LPC_SC->PLL0CON = 0x01;
   LPC_SC->PLL0FEED = 0xAA;
   LPC_SC->PLL0FEED = 0x55;
 

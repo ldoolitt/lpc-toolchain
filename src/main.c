@@ -23,20 +23,55 @@
  */
 
 #include <LPC17xx.h>
+#include "marble1.h"
 
 int main (void) {
-  SystemInit();
+  // SystemInit();
 
   /* Update the value of SystemCoreClock */
   SystemCoreClockUpdate();
 
   /* Set an LED output */
-  LPC_GPIO0->FIODIR |= 1 << 22;
+  // LPC_GPIO0->FIODIR |= 1 << 22;
+  LPC_GPIO2->FIODIR |= 1 << 21; // LD 15
+  LPC_GPIO2->FIOSET |= (1 << 21);  // LD15 on
+
+  LPC_GPIO2->FIODIR |= 1 << 25;
+  LPC_GPIO2->FIOSET |= (1 << 25);  // LD13 on
+
+  LPC_GPIO2->FIODIR |= 1 << 24;
+  LPC_GPIO2->FIOSET |= (1 << 24);  // LD14 on
+
+  LPC_GPIO1->FIODIR |= 1 << 27;
+  LPC_GPIO1->FIOSET |= (1 << 27);  // EN_FMC1_P12V
+
+  LPC_GPIO1->FIODIR |= 1 << 19;
+  LPC_GPIO1->FIOSET |= (1 << 19);  // EN_FMC2_P12V
 
   /* Configure the SysTick for 50ms interrupts */
   SysTick_Config(SystemCoreClock / 20);
+
+  ssp_init();
+  unsigned char mac_ip_data[10] = {
+      18, 85, 85, 0, 1, 46,  // MAC (locally managed)
+      192, 168, 19, 31   // IP
+  };
+  int push_button=1;
+  while (1) {
+      int push_button_new = (LPC_GPIO2->FIOPIN >> 12) & 1;  // SW2 or SW3
+      int fpga_int = (LPC_GPIO0->FIOPIN >> 19) & 1;  // debug hook
+      if (fpga_int || (!push_button_new && push_button)) {  // falling edge detect
+          push_fpga_mac_ip(mac_ip_data);
+          for (unsigned ix=0; ix<6000; ix++) { (void) LPC_SSP0->SR; }  // doze
+      }
+      push_button = push_button_new;
+      // No debounce, might trigger on button release as well
+  }
 }
+
 extern void SysTick_Handler(void) {
   /* Toggle an LED */
-  LPC_GPIO0->FIOPIN ^= 1 << 22;
+  LPC_GPIO2->FIOPIN ^= 1 << 21;
+  LPC_GPIO2->FIOPIN ^= 1 << 25;
+  LPC_GPIO2->FIOPIN ^= 1 << 24;
 }

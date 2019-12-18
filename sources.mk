@@ -1,1 +1,2 @@
-SOURCES += src/main.c \
+SOURCES += src/ssp.c \
+src/main.c \
