@@ -6,7 +6,9 @@ compilation, but the
 is still required for downloading and debugging via NXP's LPC-Link.
 
 **This branch is intended for the LPC17xx series of devices, and the
-  LPC1769 in particular.**
+  LPC1776 in particular, with customizations for the [Marble-Mini](https://github.com/BerkeleyLab/Marble-Mini)**
+
+**It is in turn forked from a branch targeting the LPC1769**
 
 ## Prerequisites ##
 

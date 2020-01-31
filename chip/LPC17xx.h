@@ -957,11 +957,11 @@ typedef struct
 #define LPC_NVIC		((LPC_NVIC_TypeDef*	) 0xe000e100 )
 #define LPC_PINCON		((LPC_PINCON_TypeDef*	) 0x4002c000 )
 
-#define LPC_GPIO0		((LPC_GPIO_TypeDef*	) 0x2009c000 )
-#define LPC_GPIO1		((LPC_GPIO_TypeDef*	) 0x2009c020 )
-#define LPC_GPIO2		((LPC_GPIO_TypeDef*	) 0x2009c040 )
-#define LPC_GPIO3		((LPC_GPIO_TypeDef*	) 0x2009c060 )
-#define LPC_GPIO4		((LPC_GPIO_TypeDef*	) 0x2009c080 )
+#define LPC_GPIO0		((LPC_GPIO_TypeDef*	) 0x20098000 )
+#define LPC_GPIO1		((LPC_GPIO_TypeDef*	) 0x20098020 )
+#define LPC_GPIO2		((LPC_GPIO_TypeDef*	) 0x20098040 )
+#define LPC_GPIO3		((LPC_GPIO_TypeDef*	) 0x20098060 )
+#define LPC_GPIO4		((LPC_GPIO_TypeDef*	) 0x20098080 )
 #define LPC_GPIOINT		((LPC_GPIOINT_TypeDef*	) 0x40028080 )
 
 #define LPC_EMAC		((LPC_EMAC_TypeDef*	) 0x50000000 )
